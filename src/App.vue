@@ -1,45 +1,31 @@
-<template>
-  <h2>Инпут</h2>
-  <Form @submit="onSubmit">
-    <InputExample
-      :validator="validateCardNumber"
-      :placeholder="'CARD NUMBER'"
-      :size="size.medium"
-      :name="'card number'"
-    />
-  </Form>
-</template>
-
 <script>
 import { Form } from "vee-validate";
 import InputExample from "./components/Input/InputExample.vue";
-import {
-  validateCardNumber,
-  validateCardholderName
-} from "./services/validators";
+import { inputConfig } from "@/services/formConfig";
 
 export default {
   name: "App",
   data: () => ({
-    size: {
-      small: "small",
-      medium: "medium",
-      large: "large"
-    }
+    inputConfig
   }),
   components: {
     InputExample,
     Form
   },
   methods: {
-    validateCardNumber,
-    validateCardholderName,
-    methods: {
-      onSubmit(values) {
-        console.log(values, null, 2);
-        console.log("inputValue ####: ", this.inputValue);
-      }
+    onSubmit(values) {
+      console.log(values);
     }
   }
 };
 </script>
+
+<template>
+  <h2>Инпут</h2>
+  <Form @submit="onSubmit">
+    <InputExample
+      :style="inputConfig.style.medium"
+      :name="inputConfig.name.cardNumber"
+    />
+  </Form>
+</template>

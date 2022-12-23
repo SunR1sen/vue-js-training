@@ -48,6 +48,15 @@ export default {
       }
 
       return null;
+    },
+
+    selectAutocomplete: (name) => {
+      switch (name) {
+        case inputConfig.name.cardNumber:
+          return "cc-number";
+      }
+
+      return "";
     }
   }
 };
@@ -61,7 +70,7 @@ export default {
       :name="name"
       :rules="selectValidator(name)"
       :placeholder="selectPlaceholder(name)"
-      autocomplete="cc-number"
+      :autocomplete="selectAutocomplete(name)"
     />
     <ErrorMessage :class="s.error" :name="name" />
   </div>

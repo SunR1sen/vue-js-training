@@ -1,11 +1,17 @@
 <script>
 import { Field, ErrorMessage } from "vee-validate";
+import { vMaska } from "maska";
 import {
   validateCardNumber,
   validateCardholderName,
   isRequired
 } from "@/services/validators";
-import { inputConfig } from "@/services/formConfig";
+import {
+  selectPlaceholder,
+  selectAutocomplete,
+  selectValidator,
+  selectMask
+} from "@/services/formService";
 import s from "./InputExample.modules.scss";
 
 export default {
@@ -25,39 +31,16 @@ export default {
     s
   }),
 
+  directives: { maska: vMaska },
+
   methods: {
     validateCardNumber,
     validateCardholderName,
     isRequired,
-    selectPlaceholder: (name) => {
-      switch (name) {
-        case inputConfig.name.cardNumber:
-          return "CARD NUMBER";
-      }
-
-      return "";
-    },
-
-    selectValidator: (name) => {
-      switch (name) {
-        case inputConfig.name.cardNumber:
-          return validateCardNumber;
-
-        case inputConfig.name.cardholderName:
-          return validateCardholderName;
-      }
-
-      return null;
-    },
-
-    selectAutocomplete: (name) => {
-      switch (name) {
-        case inputConfig.name.cardNumber:
-          return "cc-number";
-      }
-
-      return "";
-    }
+    selectPlaceholder,
+    selectAutocomplete,
+    selectValidator,
+    selectMask
   }
 };
 </script>
@@ -71,6 +54,8 @@ export default {
       :rules="selectValidator(name)"
       :placeholder="selectPlaceholder(name)"
       :autocomplete="selectAutocomplete(name)"
+      :data-maska="selectMask(name)"
+      v-maska
     />
     <ErrorMessage :class="s.error" :name="name" />
   </div>

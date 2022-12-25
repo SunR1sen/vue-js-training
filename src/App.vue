@@ -1,7 +1,7 @@
 <script>
 import { Form } from "vee-validate";
 import InputExample from "./components/Input/InputExample.vue";
-import { inputConfig } from "@/services/formConfig";
+import { inputConfig } from "@/services/formService";
 
 export default {
   name: "App",

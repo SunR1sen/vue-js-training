@@ -1,26 +1,31 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
-</template>
-
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import { Form } from "vee-validate";
+import InputExample from "./components/Input/InputExample.vue";
+import { inputConfig } from "@/services/formService";
 
 export default {
   name: "App",
+  data: () => ({
+    inputConfig
+  }),
   components: {
-    HelloWorld,
+    InputExample,
+    Form
   },
+  methods: {
+    onSubmit(values) {
+      console.log(values);
+    }
+  }
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <h2>Инпут</h2>
+  <Form @submit="onSubmit">
+    <InputExample
+      :style="inputConfig.style.medium"
+      :name="inputConfig.name.cardNumber"
+    />
+  </Form>
+</template>

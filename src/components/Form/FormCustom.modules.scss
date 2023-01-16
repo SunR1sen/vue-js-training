@@ -1,0 +1,34 @@
+.form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 580px;
+    height: 320px;
+    gap: 30px;
+    background-color: #0c171333;
+    border-radius: 20px;
+    padding: 40px 24px;
+    background-image: url('../../assets/card_mc.svg');
+    background-repeat: no-repeat;
+    background-position: 420px 40px;
+}
+
+.dates {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.button {
+    display: flex;
+    padding: 14px;
+    justify-content: center;
+    background: #E71D36;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    color: white;
+    line-height: 1.2;
+    margin: 30px 40px;
+}

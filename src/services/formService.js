@@ -1,10 +1,15 @@
-import { validateCardNumber, validateCardholderName } from "./validators";
+import {
+  validateCardNumber,
+  validateCardholderName,
+  validateCvc
+} from "./validators";
 
 export const inputConfig = {
   name: {
     text: "Text",
     cardNumber: "Card Number",
-    cardholderName: "Cardholder Name"
+    cardholderName: "Cardholder Name",
+    cvc: "CVC/CVV"
   },
   type: {
     text: "text",
@@ -12,7 +17,8 @@ export const inputConfig = {
   },
   style: {
     default: "default",
-    medium: "medium"
+    medium: "medium",
+    cvc: "cvc"
   }
 };
 
@@ -20,6 +26,12 @@ export const selectPlaceholder = (name) => {
   switch (name) {
     case inputConfig.name.cardNumber:
       return "CARD NUMBER";
+
+    case inputConfig.name.cardholderName:
+      return "CARDHOLDER NAME";
+
+    case inputConfig.name.cvc:
+      return "CVC/CVV";
   }
 
   return "";
@@ -32,6 +44,9 @@ export const selectValidator = (name) => {
 
     case inputConfig.name.cardholderName:
       return validateCardholderName;
+
+    case inputConfig.name.cvc:
+      return validateCvc;
   }
 
   return null;

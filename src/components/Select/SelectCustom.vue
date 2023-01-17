@@ -1,5 +1,6 @@
 <script>
 import { Field, ErrorMessage } from "vee-validate";
+import { selectValues } from "@/services/formService";
 import { isRequired } from "@/services/validators";
 import s from "./SelectCustom.modules.scss";
 
@@ -9,29 +10,17 @@ export default {
       required: true,
       type: String
     },
-    placeholder: String
+    placeholder: String,
+    data: Array,
+    required: Boolean,
+    style: String
   },
   setup(props) {
-    const selectData = (name) => {
-      if (name === "month") {
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-      }
-      if (name === "year") {
-        const currentYear = new Date().getFullYear();
-        const data = [];
-        for (let i = 0; i <= 10; i++) {
-          data.push(currentYear + i);
-        }
-        return data;
-      }
-
-      return "";
-    };
-    const data = selectData(props.name);
+    const selectData = props.data ? props.data : selectValues(props.name);
     return {
       s,
       isRequired,
-      data
+      selectData
     };
   },
   components: { Field, ErrorMessage }
@@ -40,9 +29,19 @@ export default {
 
 <template>
   <div :class="s.wrapper">
-    <Field :name="name" as="select" :class="s.select" :rules="isRequired">
+    <Field
+      :name="name"
+      as="select"
+      :class="[s.select, s[style]]"
+      :rules="required ? isRequired : ''"
+    >
       <option disabled value="">{{ placeholder }}</option>
-      <option v-for="item in data" :class="s.option" :key="item" :value="item">
+      <option
+        v-for="item in selectData"
+        :class="s.option"
+        :key="item"
+        :value="item"
+      >
         {{ item }}
       </option>
     </Field>

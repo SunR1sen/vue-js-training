@@ -36,7 +36,12 @@ export default {
     />
     <div :class="s.dates">
       <SelectCustom :name="'month'" :placeholder="'MM'" />
-      <SelectCustom :name="'year'" :placeholder="'YY'" />
+      <SelectCustom
+        :name="'year'"
+        :placeholder="'YY'"
+        :style="'large'"
+        required
+      />
       <InputCustom
         :style="inputConfig.style.cvc"
         :name="inputConfig.name.cvc"

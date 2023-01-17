@@ -22,6 +22,29 @@ export const inputConfig = {
   }
 };
 
+export const selectConfig = {
+  name: {
+    month: "Month",
+    year: "Year"
+  }
+};
+
+export const selectValues = (name) => {
+  if (name === "month") {
+    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  }
+  if (name === "year") {
+    const currentYear = new Date().getFullYear();
+    const data = [];
+    for (let i = 0; i <= 10; i++) {
+      data.push(currentYear + i);
+    }
+    return data;
+  }
+
+  return [];
+};
+
 export const selectPlaceholder = (name) => {
   switch (name) {
     case inputConfig.name.cardNumber:

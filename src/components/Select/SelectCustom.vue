@@ -13,7 +13,8 @@ export default {
     placeholder: String,
     data: Array,
     required: Boolean,
-    style: String
+    style: String,
+    validator: Function
   },
   setup(props) {
     const selectData = props.data ? props.data : selectValues(props.name);
@@ -30,16 +31,16 @@ export default {
 <template>
   <div :class="s.wrapper">
     <Field
-      :name="name"
-      as="select"
       :class="[s.select, s[style]]"
-      :rules="required ? isRequired : ''"
+      :name="name"
+      :rules="validator"
+      as="select"
     >
       <option disabled value="">{{ placeholder }}</option>
       <option
         v-for="item in selectData"
-        :class="s.option"
         :key="item"
+        :class="s.option"
         :value="item"
       >
         {{ item }}

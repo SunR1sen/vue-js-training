@@ -15,6 +15,15 @@ export const isRequired = (value) => {
   return true;
 };
 
+export const validateCvc = (value) => {
+  const cvcRegex = /^[0-9]{3,4}$/;
+  if (!cvcRegex.test(value)) {
+    return "Not valid CVC/CVV code";
+  }
+
+  return true;
+};
+
 export const validateCardholderName = (value) => {
   const cardholderNameRegex = /^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$/;
   if (!cardholderNameRegex.test(value)) {

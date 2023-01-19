@@ -12,7 +12,7 @@ import {
   selectValidator,
   selectMask
 } from "@/services/formService";
-import s from "./InputExample.modules.scss";
+import s from "./InputCustom.modules.scss";
 
 export default {
   name: "InputExample",

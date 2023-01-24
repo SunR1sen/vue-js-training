@@ -3,6 +3,7 @@ import { Field, ErrorMessage } from "vee-validate";
 import { selectValues } from "@/services/formService";
 import { isRequired } from "@/services/validators";
 import s from "./SelectCustom.modules.scss";
+import vSelect from "vue-select";
 
 export default {
   props: {
@@ -23,27 +24,28 @@ export default {
       selectData
     };
   },
-  components: { Field, ErrorMessage }
+  components: { Field, ErrorMessage, vSelect }
 };
 </script>
 
 <template>
   <div :class="s.wrapper">
     <Field
-      :name="name"
-      as="select"
-      :class="[s.select, s[style]]"
-      :rules="required ? isRequired : ''"
+      name="supportType"
+      v-slot="{ field, handleChange }"
+      :rules="
+        () => {
+          return isRequired;
+        }
+      "
     >
-      <option disabled value="">{{ placeholder }}</option>
-      <option
-        v-for="item in selectData"
-        :class="s.option"
-        :key="item"
-        :value="item"
+      <v-select
+        :options="selectData"
+        label="name"
+        v-bind="field.value"
+        @change="handleChange"
       >
-        {{ item }}
-      </option>
+      </v-select>
     </Field>
     <ErrorMessage :class="s.error" :name="name" />
   </div>

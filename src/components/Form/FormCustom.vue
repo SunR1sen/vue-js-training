@@ -32,31 +32,32 @@ export default {
 </script>
 
 <template>
-  <Form v-model="form" :class="s.form" v-slot="{ handleSubmit }">
-    <form @submit="handleSubmit($event, onSubmit)">
-      <InputCustom
-        :style="inputConfig.style.medium"
-        :name="inputConfig.name.cardNumber"
-        :model="form.name"
+  <Form v-model="form" :class="s.form">
+    <!--    <form @submit="handleSubmit($event, onSubmit)">-->
+    <InputCustom
+      :style="inputConfig.style.medium"
+      :name="inputConfig.name.cardNumber"
+      :model="form.name"
+    />
+    <InputCustom
+      :style="inputConfig.style.medium"
+      :name="inputConfig.name.cardholderName"
+    />
+    <div :class="s.dates">
+      <SelectCustom :name="'month'" :placeholder="'MM'" />
+      <SelectCustom
+        v-model="form.year"
+        :name="'year'"
+        :placeholder="'YY'"
+        :style="'large'"
+        :required="true"
       />
       <InputCustom
-        :style="inputConfig.style.medium"
-        :name="inputConfig.name.cardholderName"
+        :style="inputConfig.style.cvc"
+        :name="inputConfig.name.cvc"
       />
-      <div :class="s.dates">
-        <SelectCustom :name="'month'" :placeholder="'MM'" />
-        <SelectCustom
-          :name="'year'"
-          :placeholder="'YY'"
-          :style="'large'"
-          :required="true"
-        />
-        <InputCustom
-          :style="inputConfig.style.cvc"
-          :name="inputConfig.name.cvc"
-        />
-      </div>
-      <input type="submit" :class="s.button" @click="onSubmit" />
-    </form>
+    </div>
+    <input type="submit" :class="s.button" @click="onSubmit" />
+    <!--    </form>-->
   </Form>
 </template>

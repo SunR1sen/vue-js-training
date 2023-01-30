@@ -16,6 +16,7 @@ export default {
     required: Boolean,
     style: String
   },
+  emits: ["update:modelValue"],
   setup(props) {
     const selectData = props.data ? props.data : selectValues(props.name);
     return {
@@ -31,19 +32,26 @@ export default {
 <template>
   <div :class="s.wrapper">
     <Field
-      name="supportType"
-      v-slot="{ field, handleChange }"
+      v-slot="{
+        field
+        // , handleChange
+      }"
       :rules="
         () => {
           return isRequired;
         }
       "
+      :name="name"
     >
       <v-select
         :options="selectData"
         label="name"
         v-bind="field.value"
-        @change="handleChange"
+        @option:selected="(value) => $emit('update:modelValue', value)"
+        @option:deselected="() => $emit('update:modelValue', 0)"
+        @input="() => $emit('update:modelValue', null)"
+        :clearable="false"
+        :searchable="false"
       >
       </v-select>
     </Field>

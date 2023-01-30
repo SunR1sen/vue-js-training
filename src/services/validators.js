@@ -15,6 +15,14 @@ export const isRequired = (value) => {
   return true;
 };
 
+export const checkboxRequired = (value) => {
+  if (value) {
+    return "This field is required";
+  }
+
+  return true;
+};
+
 export const validateCvc = (value) => {
   const cvcRegex = /^[0-9]{3,4}$/;
   if (!cvcRegex.test(value)) {

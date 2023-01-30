@@ -1,62 +1,65 @@
 .select {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-image: url(./assets/triangle.svg);
-    background-repeat: no-repeat;
-    background-position: calc(100% - 15px) center;
-    background-size: 16px;
-    background-color: white;
-    border: 1px solid #B6B9B8;
-    border-radius: 8px;
-    color: #858B89;
-    line-height: 1.2;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-image: url(./assets/triangle.svg);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  background-size: 16px;
+  background-color: white;
+  border: 1px solid #B6B9B8;
+  border-radius: 8px;
+  color: #858B89;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 18px 16px;
+
+  &:focus {
+    outline: none !important;
+    border-color: #777978;
+  }
+
+  &::placeholder {
+    color: #b6bebc;
     text-transform: uppercase;
-    width: 160px;
-    font-size: 20px;
-    padding: 18px 16px;
-
-    &:focus {
-        outline: none !important;
-        border-color: #777978;
-    }
-
-    &::placeholder {
-        color: #b6bebc;
-        text-transform: uppercase;
-    }
+  }
 }
 
 .large {
-    width: 360px;
+  width: 360px;
+}
+
+.medium {
+  width: 160px;
 }
 
 .option {
-    background-color: white;
-    border: 1px solid #B6B9B8;
-    border-radius: 8px;
-    color: #858B89;
-    line-height: 1.2;
-    text-transform: uppercase;
-    font-size: 20px;
-    padding: 18px 16px;
+  background-color: white;
+  border: 1px solid #B6B9B8;
+  border-radius: 8px;
+  color: #858B89;
+  line-height: 1.2;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 18px 16px;
 
-    &:focus {
-        outline: none !important;
-        border-color: #777978;
-    }
+  &:focus {
+    outline: none !important;
+    border-color: #777978;
+  }
 }
 
 .wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .error {
-    position: absolute;
-    bottom: -20px;
-    font-size: 12px;
-    color: red;
+  position: absolute;
+  bottom: -20px;
+  font-size: 12px;
+  color: red;
 }

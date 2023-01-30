@@ -1,15 +1,16 @@
 import {
   validateCardNumber,
   validateCardholderName,
-  validateCvc
+  validateCvc,
+  isRequired
 } from "./validators";
 
 export const inputConfig = {
   // TODO: use simple names for inputs
   name: {
-    text: "Text",
-    cardNumber: "number",
-    cardholderName: "Cardholder Name",
+    text: "text",
+    cardNumber: "cardNumber",
+    cardholderName: "cardholderName",
     cvc: "CVC/CVV"
   },
   type: {
@@ -27,14 +28,20 @@ export const selectConfig = {
   name: {
     month: "Month",
     year: "Year"
+  },
+  style: {
+    medium: "medium"
+  },
+  validator: {
+    required: isRequired
   }
 };
 
 export const selectValues = (name) => {
-  if (name === "month") {
+  if (name === selectConfig.name.month) {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   }
-  if (name === "year") {
+  if (name === selectConfig.name.year) {
     const currentYear = new Date().getFullYear();
     const data = [];
     for (let i = 0; i <= 10; i++) {

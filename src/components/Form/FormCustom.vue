@@ -13,7 +13,14 @@ export default {
     checkboxValue: false,
     inputConfig,
     selectConfig,
-    s
+    s,
+    form: {
+      number: "",
+      name: "",
+      cvv: "",
+      month: 0,
+      year: 0
+    }
   }),
   components: {
     InputCustom,
@@ -22,8 +29,8 @@ export default {
     CheckboxCustom
   },
   methods: {
-    onSubmit(values) {
-      console.log(values);
+    onSubmit(e) {
+      console.log(e);
     },
     checkboxHandler() {
       this.checkboxValue = !this.checkboxValue;
@@ -34,9 +41,13 @@ export default {
 </script>
 
 <template>
-  <Form :class="s.form" @submit="onSubmit">
+  <Form v-model="form" :class="s.form">
+    <!--    <form @submit="handleSubmit($event, onSubmit)">-->
     <InputCustom
       :name="inputConfig.name.cardNumber"
+      :model="form.name"
+    />
+    <InputCustom
       :style="inputConfig.style.medium"
     />
     <InputCustom
@@ -44,22 +55,21 @@ export default {
       :style="inputConfig.style.medium"
     />
     <div :class="s.dates">
+      <SelectCustom v-model="form.month" :name="'month'" :placeholder="'MM'" />
       <SelectCustom
-        :name="selectConfig.name.month"
-        :placeholder="'MM'"
-        :style="selectConfig.style.medium"
-      />
-      <SelectCustom
+        v-model="form.year"
         :name="selectConfig.name.year"
         :placeholder="'YY'"
-        :style="selectConfig.style.medium"
-        :validator="selectConfig.validator.required"
+        :style="'large'"
+        :required="true"
       />
       <InputCustom
         :name="inputConfig.name.cvc"
         :style="inputConfig.style.cvc"
       />
     </div>
+    <input type="submit" :class="s.button" @click="onSubmit" />
+    <!--    </form>-->
   </Form>
   <Form>
     <CheckboxCustom

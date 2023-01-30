@@ -6,9 +6,10 @@ import {
 } from "./validators";
 
 export const inputConfig = {
+  // TODO: use simple names for inputs
   name: {
     text: "Text",
-    cardNumber: "Card Number",
+    cardNumber: "number",
     cardholderName: "Cardholder Name",
     cvc: "CVC/CVV"
   },

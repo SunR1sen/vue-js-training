@@ -3,6 +3,7 @@ import { Field, ErrorMessage } from "vee-validate";
 import { selectValues } from "@/services/formService";
 import { isRequired } from "@/services/validators";
 import s from "./SelectCustom.modules.scss";
+import vSelect from "vue-select";
 
 export default {
   props: {
@@ -16,6 +17,7 @@ export default {
     style: String,
     validator: Function
   },
+  emits: ["update:modelValue"],
   setup(props) {
     const selectData = props.data ? props.data : selectValues(props.name);
     return {
@@ -24,27 +26,28 @@ export default {
       selectData
     };
   },
-  components: { Field, ErrorMessage }
+  components: { Field, ErrorMessage, vSelect }
 };
 </script>
 
 <template>
   <div :class="s.wrapper">
-    <Field
-      :class="[s.select, s[style]]"
-      :name="name"
-      :rules="validator"
-      as="select"
-    >
-      <option disabled value="">{{ placeholder }}</option>
-      <option
-        v-for="item in selectData"
-        :key="item"
-        :class="s.option"
-        :value="item"
+    <Field v-slot="{ field, handleChange }" :rules="isRequired" :name="name">
+      <v-select
+        :options="selectData"
+        label="name"
+        v-bind="field.value"
+        @option:selected="
+          (value) => {
+            handleChange(value, true);
+            $emit('update:modelValue', value);
+          }
+        "
+        :clearable="false"
+        :searchable="false"
+        :multiple="false"
       >
-        {{ item }}
-      </option>
+      </v-select>
     </Field>
     <ErrorMessage :class="s.error" :name="name" />
   </div>

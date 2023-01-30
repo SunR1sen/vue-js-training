@@ -43,13 +43,7 @@ export default {
 <template>
   <Form v-model="form" :class="s.form">
     <!--    <form @submit="handleSubmit($event, onSubmit)">-->
-    <InputCustom
-      :name="inputConfig.name.cardNumber"
-      :model="form.name"
-    />
-    <InputCustom
-      :style="inputConfig.style.medium"
-    />
+    <InputCustom :name="inputConfig.name.cardNumber" :model="form.name" />
     <InputCustom
       :name="inputConfig.name.cardholderName"
       :style="inputConfig.style.medium"

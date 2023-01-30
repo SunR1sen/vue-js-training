@@ -10,7 +10,8 @@ import {
   selectPlaceholder,
   selectAutocomplete,
   selectValidator,
-  selectMask
+  selectMask,
+  inputConfig
 } from "@/services/formService";
 import s from "./InputCustom.modules.scss";
 
@@ -27,6 +28,8 @@ export default {
     required: Boolean
   },
 
+  emits: ["update:modelValue"],
+
   data: () => ({
     s
   }),
@@ -40,7 +43,15 @@ export default {
     selectPlaceholder,
     selectAutocomplete,
     selectValidator,
-    selectMask
+    selectMask,
+    trimValue(value) {
+      if (!value) {
+        return "";
+      } else if (this.name === inputConfig.name.cardNumber) {
+        return value.replaceAll(" ", "");
+      }
+      return value;
+    }
   }
 };
 </script>
@@ -48,6 +59,7 @@ export default {
 <template>
   <div :class="s.wrapper">
     <Field
+      @change="(e) => $emit('update:modelValue', trimValue(e.target.value))"
       :class="[s.input, s[style]]"
       type="text"
       :name="name"

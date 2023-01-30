@@ -13,7 +13,6 @@ export default {
     },
     placeholder: String,
     data: Array,
-    required: Boolean,
     style: String,
     validator: Function
   },
@@ -32,7 +31,7 @@ export default {
 
 <template>
   <div :class="s.wrapper">
-    <Field v-slot="{ field, handleChange }" :rules="isRequired" :name="name">
+    <Field v-slot="{ field, handleChange }" :rules="validator" :name="name">
       <v-select
         :options="selectData"
         label="name"

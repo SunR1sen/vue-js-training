@@ -8,9 +8,9 @@ import {
 export const inputConfig = {
   // TODO: use simple names for inputs
   name: {
-    text: "Text",
-    cardNumber: "number",
-    cardholderName: "Cardholder Name",
+    text: "text",
+    cardNumber: "cardNumber",
+    cardholderName: "cardholderName",
     cvc: "CVC/CVV"
   },
   type: {

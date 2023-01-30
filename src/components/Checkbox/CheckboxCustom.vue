@@ -6,18 +6,15 @@ export default {
   props: {
     name: { type: String, required: true },
     label: { type: String, required: true },
-    value: { type: Boolean, required: true },
-    handler: { type: Function, required: true },
+    modelValue: { type: Boolean, required: true },
     validator: Function
   },
   setup() {
-    // const checkboxValue = ref(props.value);
-    // const checkboxHandler = () => {
-    //   checkboxValue.value = !checkboxValue.value;
-    //   console.log(checkboxValue);
-    // };
     return { s };
   },
+
+  emits: ["update:modelValue"],
+
   components: { Field, ErrorMessage }
 };
 </script>
@@ -25,14 +22,28 @@ export default {
 <template>
   <div :class="s.wrapper">
     <Field
-      :id="name"
-      @change="handler"
-      :value="value"
+      v-slot="{ field, handleChange }"
       :name="name"
       type="checkbox"
       :rules="validator"
-    />
-    <label :for="name">{{ label }}</label>
+      :checked="modelValue"
+    >
+      <label>
+        <input
+          @change="
+            (e) => {
+              handleChange(e.target.checked, true);
+              $emit('update:modelValue', e.target.checked);
+            }
+          "
+          type="checkbox"
+          :name="name"
+          v-bind="field"
+          :checked="modelValue"
+        />
+        {{ label }}
+      </label>
+    </Field>
     <ErrorMessage :class="s.error" :name="name" />
   </div>
 </template>

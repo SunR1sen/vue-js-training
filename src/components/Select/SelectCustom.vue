@@ -31,27 +31,20 @@ export default {
 
 <template>
   <div :class="s.wrapper">
-    <Field
-      v-slot="{
-        field
-        // , handleChange
-      }"
-      :rules="
-        () => {
-          return isRequired;
-        }
-      "
-      :name="name"
-    >
+    <Field v-slot="{ field, handleChange }" :rules="isRequired" :name="name">
       <v-select
         :options="selectData"
         label="name"
         v-bind="field.value"
-        @option:selected="(value) => $emit('update:modelValue', value)"
-        @option:deselected="() => $emit('update:modelValue', 0)"
-        @input="() => $emit('update:modelValue', null)"
+        @option:selected="
+          (value) => {
+            handleChange(value, true);
+            $emit('update:modelValue', value);
+          }
+        "
         :clearable="false"
         :searchable="false"
+        :multiple="false"
       >
       </v-select>
     </Field>

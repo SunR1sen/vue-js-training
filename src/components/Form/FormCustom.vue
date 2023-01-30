@@ -44,7 +44,7 @@ export default {
       :name="inputConfig.name.cardholderName"
     />
     <div :class="s.dates">
-      <SelectCustom :name="'month'" :placeholder="'MM'" />
+      <SelectCustom v-model="form.month" :name="'month'" :placeholder="'MM'" />
       <SelectCustom
         v-model="form.year"
         :name="'year'"

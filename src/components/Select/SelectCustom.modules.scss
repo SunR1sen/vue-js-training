@@ -2,7 +2,7 @@
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-image: url(./assets/triangle.svg);
+  // background-image: url(./assets/triangle.svg);
   background-repeat: no-repeat;
   background-position: calc(100% - 15px) center;
   background-size: 16px;
@@ -24,6 +24,10 @@
     color: #b6bebc;
     text-transform: uppercase;
   }
+}
+
+.simpleSelect {
+  min-width: 200px;
 }
 
 .large {

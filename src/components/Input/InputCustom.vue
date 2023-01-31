@@ -24,12 +24,13 @@ export default {
 
   props: {
     name: { type: String, required: true },
+    defaultValue: String,
     style: String,
-    required: Boolean
+    required: Boolean,
+    modelValue: { type: String, required: true }
   },
 
   emits: ["update:modelValue"],
-
   data: () => ({
     s
   }),
@@ -68,6 +69,7 @@ export default {
       :autocomplete="selectAutocomplete(name)"
       :data-maska="selectMask(name)"
       v-maska
+      :value="modelValue"
     />
     <ErrorMessage :class="s.error" :name="name" />
   </div>

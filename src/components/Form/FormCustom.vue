@@ -1,18 +1,16 @@
 <script>
 import { Form } from "vee-validate";
-import { inputConfig, selectConfig } from "@/services/formService";
-import InputCustom from "../Input/InputCustom.vue";
-import SelectCustom from "../Select/SelectCustom.vue";
-import CheckboxCustom from "../Checkbox/CheckboxCustom.vue";
-import { checkboxRequired, isRequired } from "@/services/validators";
+import { inputConfig, selectConfig, formData } from "@/services/formService";
+import FormRenderer from "../FormRenderer/FormRenderer.vue";
+import { isRequired } from "@/services/validators";
 import s from "./FormCustom.modules.scss";
 
 export default {
   name: "FormCustom",
   data: () => ({
-    checkboxValue: false,
     inputConfig,
     selectConfig,
+    formData,
     s,
     form: {
       number: "",
@@ -24,73 +22,21 @@ export default {
     }
   }),
   components: {
-    InputCustom,
-    Form,
-    SelectCustom,
-    CheckboxCustom
+    FormRenderer,
+    Form
   },
   methods: {
     isRequired,
     onSubmit() {
       console.log(this.form);
-    },
-    checkboxRequired,
-    log(value) {
-      console.log(value);
     }
   }
 };
 </script>
 
 <template>
-  <Form
-    v-slot="{ errors }"
-    @submit="
-      () => {
-        // validate().then(() => log(errors));
-        onSubmit();
-      }
-    "
-    v-model="form"
-    :class="s.form"
-  >
-    <InputCustom
-      :style="inputConfig.style.medium"
-      :name="inputConfig.name.cardNumber"
-      v-model="form.number"
-    />
-    <InputCustom
-      v-model="form.name"
-      :name="inputConfig.name.cardholderName"
-      :style="inputConfig.style.medium"
-    />
-    <div :class="s.dates">
-      <SelectCustom
-        v-model="form.month"
-        :name="selectConfig.name.month"
-        :placeholder="'MM'"
-        :validator="isRequired"
-      />
-      <SelectCustom
-        v-model="form.year"
-        :name="selectConfig.name.year"
-        :placeholder="'YY'"
-        :style="'large'"
-        :validator="isRequired"
-      />
-      <InputCustom
-        v-model="form.cvv"
-        :name="inputConfig.name.cvc"
-        :style="inputConfig.style.cvc"
-      />
-    </div>
-
-    <CheckboxCustom
-      v-model="form.terms"
-      :name="'acceptTerms'"
-      :label="'Accept Terms & Conditions'"
-      :validator="isRequired"
-    />
+  <Form v-slot="{ errors }" @submit="onSubmit" v-model="form" :class="s.inputs">
+    <FormRenderer :formData="formData" />
     <input
       :disabled="Object.keys(errors).length"
       type="submit"

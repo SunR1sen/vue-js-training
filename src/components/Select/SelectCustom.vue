@@ -2,8 +2,8 @@
 import { Field, ErrorMessage } from "vee-validate";
 import { selectValues } from "@/services/formService";
 import { isRequired } from "@/services/validators";
-import s from "./SelectCustom.modules.scss";
 import vSelect from "vue-select";
+import s from "./SelectCustom.modules.scss";
 
 export default {
   props: {
@@ -33,8 +33,9 @@ export default {
   <div :class="s.wrapper">
     <Field v-slot="{ field, handleChange }" :rules="validator" :name="name">
       <v-select
+        :class="s.simpleSelect"
         :options="selectData"
-        label="name"
+        :placeholder="placeholder"
         v-bind="field.value"
         @option:selected="
           (value) => {

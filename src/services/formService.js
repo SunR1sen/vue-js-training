@@ -38,10 +38,10 @@ export const selectConfig = {
 };
 
 export const selectValues = (name) => {
-  if (name === selectConfig.name.month) {
+  if (name === "month") {
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   }
-  if (name === selectConfig.name.year) {
+  if (name === "year") {
     const currentYear = new Date().getFullYear();
     const data = [];
     for (let i = 0; i <= 10; i++) {
@@ -100,3 +100,36 @@ export const selectMask = (name) => {
 
   return "";
 };
+
+export const formData = [
+  {
+    name: "cardNumber",
+    type: "input",
+    placeholder: "CARD NUMBER",
+    defaultValue: "4444333322221111"
+  },
+  {
+    name: "cardholderName",
+    type: "input",
+    placeholder: "CARDHOLDER NAME",
+    defaultValue: "TEST NAME"
+  },
+  {
+    name: "year",
+    type: "select",
+    placeholder: "YEAR",
+    defaultValue: ""
+  },
+  {
+    name: "month",
+    type: "select",
+    placeholder: "MONTH",
+    defaultValue: ""
+  },
+  {
+    name: "terms",
+    type: "checkbox",
+    label: "Accept Terms & Conditions",
+    defaultValue: true
+  }
+];

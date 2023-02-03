@@ -1,7 +1,6 @@
 <script>
-import { Field, ErrorMessage } from "vee-validate";
+import { Field } from "vee-validate";
 import { selectValues } from "@/services/formService";
-import { isRequired } from "@/services/validators";
 import vSelect from "vue-select";
 import s from "./SelectCustom.modules.scss";
 
@@ -13,42 +12,67 @@ export default {
     },
     placeholder: String,
     data: Array,
-    style: String,
-    validator: Function
+    validation: Object,
+    modelValue: { type: String, required: true },
+    searchable: Boolean,
+    style: String
   },
   emits: ["update:modelValue"],
   setup(props) {
-    const selectData = props.data ? props.data : selectValues(props.name);
+    const selectData = props.data ? props.data : selectValues(props.name) || [];
+    const checkForRequired = (validator) => {
+      console.log(validator);
+      if (!validator) {
+        return false;
+      }
+      const findRequired = Object.keys(validator).filter(
+        (item) => item === "required"
+      );
+      return {
+        required: !!findRequired.length
+      };
+    };
     return {
       s,
-      isRequired,
-      selectData
+      selectData,
+      checkForRequired
     };
   },
-  components: { Field, ErrorMessage, vSelect }
+  components: { Field, vSelect }
 };
 </script>
 
 <template>
   <div :class="s.wrapper">
-    <Field v-slot="{ field, handleChange }" :rules="validator" :name="name">
+    <Field
+      v-slot="{ field, errors, handleChange }"
+      :rules="checkForRequired(validation)"
+      :name="name"
+    >
       <v-select
         :class="s.simpleSelect"
         :options="selectData"
         :placeholder="placeholder"
-        v-bind="field.value"
         @option:selected="
           (value) => {
             handleChange(value, true);
             $emit('update:modelValue', value);
           }
         "
-        :clearable="false"
-        :searchable="false"
+        v-bind="field"
+        :clearable="searchable"
+        :searchable="searchable"
         :multiple="false"
       >
       </v-select>
+      <span :class="s.error">{{ errors[0] }}</span>
     </Field>
-    <ErrorMessage :class="s.error" :name="name" />
   </div>
 </template>
+
+<style>
+/*Можно заюзать v-bind для прокидывания пропса*/
+.vs__search::placeholder {
+  color: #b6bebc;
+}
+</style>

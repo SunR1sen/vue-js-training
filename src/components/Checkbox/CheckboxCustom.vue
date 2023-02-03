@@ -1,5 +1,5 @@
 <script>
-import { Field, ErrorMessage } from "vee-validate";
+import { Field } from "vee-validate";
 import s from "./CheckboxCustom.modules.scss";
 
 export default {
@@ -7,7 +7,8 @@ export default {
     name: { type: String, required: true },
     label: { type: String, required: true },
     modelValue: { type: Boolean, required: true },
-    validator: Function
+    validation: Object,
+    error: String
   },
   setup() {
     return { s };
@@ -15,17 +16,17 @@ export default {
 
   emits: ["update:modelValue"],
 
-  components: { Field, ErrorMessage }
+  components: { Field }
 };
 </script>
 
 <template>
   <div :class="s.wrapper">
     <Field
-      v-slot="{ field, handleChange }"
+      v-slot="{ field, handleChange, errors }"
       :name="name"
       type="checkbox"
-      :rules="validator"
+      :rules="validation"
       :checked="modelValue"
     >
       <label>
@@ -43,7 +44,7 @@ export default {
         />
         {{ label }}
       </label>
+      <span :class="s.error">{{ error ? error : errors[0] }}</span>
     </Field>
-    <ErrorMessage :class="s.error" :name="name" />
   </div>
 </template>

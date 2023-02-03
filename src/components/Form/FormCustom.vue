@@ -2,7 +2,6 @@
 import { Form } from "vee-validate";
 import { inputConfig, selectConfig, formData } from "@/services/formService";
 import FormRenderer from "../FormRenderer/FormRenderer.vue";
-import { isRequired } from "@/services/validators";
 import s from "./FormCustom.modules.scss";
 
 export default {
@@ -16,8 +15,8 @@ export default {
       number: "",
       name: "",
       cvv: "",
-      month: 0,
-      year: 0,
+      month: "",
+      year: "",
       terms: false
     }
   }),
@@ -26,7 +25,6 @@ export default {
     Form
   },
   methods: {
-    isRequired,
     onSubmit() {
       console.log(this.form);
     }

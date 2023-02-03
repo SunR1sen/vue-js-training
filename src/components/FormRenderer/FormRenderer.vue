@@ -2,6 +2,22 @@
 import InputCustom from "../Input/InputCustom.vue";
 import SelectCustom from "../Select/SelectCustom.vue";
 import CheckboxCustom from "../Checkbox/CheckboxCustom.vue";
+import { defineRule } from "vee-validate";
+import {
+  isRequired,
+  validateCardholderName,
+  emailValidator,
+  regexValidator
+} from "@/services/validators";
+import { url, length, numeric } from "@vee-validate/rules";
+
+defineRule("required", isRequired);
+defineRule("numeric", numeric);
+defineRule("length", length);
+defineRule("email", emailValidator);
+defineRule("regex", regexValidator);
+defineRule("url", url);
+defineRule("cardholderName", validateCardholderName);
 
 export default {
   name: "FormRenderer",
@@ -35,6 +51,9 @@ export default {
         v-model="form[item.name]"
         :name="item.name"
         :placeholder="item.placeholder"
+        :validation="item.validation"
+        :style="item.style"
+        :error="item.error"
       />
     </template>
     <template v-if="item.type === 'select'">
@@ -43,6 +62,9 @@ export default {
         v-model="form[item.name]"
         :name="item.name"
         :placeholder="item.placeholder"
+        :data="item.data"
+        :validation="item.validation"
+        :searchable="!!item.searchable"
       />
     </template>
     <template v-if="item.type === 'checkbox'">
@@ -51,6 +73,7 @@ export default {
         v-model="form[item.name]"
         :name="item.name"
         :label="item.label"
+        :validation="item.validation"
       />
     </template>
   </template>

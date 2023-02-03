@@ -1,11 +1,6 @@
 <script>
-import { Field, ErrorMessage } from "vee-validate";
+import { Field } from "vee-validate";
 import { vMaska } from "maska";
-import {
-  validateCardNumber,
-  validateCardholderName,
-  isRequired
-} from "@/services/validators";
 import {
   selectPlaceholder,
   selectAutocomplete,
@@ -18,16 +13,16 @@ import s from "./InputCustom.modules.scss";
 export default {
   name: "InputExample",
   components: {
-    Field,
-    ErrorMessage
+    Field
   },
 
   props: {
     name: { type: String, required: true },
     defaultValue: String,
     style: String,
-    required: Boolean,
-    modelValue: { type: String, required: true }
+    modelValue: { type: String, required: true },
+    validation: Object,
+    error: String
   },
 
   emits: ["update:modelValue"],
@@ -38,9 +33,6 @@ export default {
   directives: { maska: vMaska },
 
   methods: {
-    validateCardNumber,
-    validateCardholderName,
-    isRequired,
     selectPlaceholder,
     selectAutocomplete,
     selectValidator,
@@ -60,17 +52,26 @@ export default {
 <template>
   <div :class="s.wrapper">
     <Field
-      @change="(e) => $emit('update:modelValue', trimValue(e.target.value))"
-      :class="[s.input, s[style]]"
-      type="text"
+      v-slot="{ field, errors, handleChange }"
+      :rules="validation"
       :name="name"
-      :rules="selectValidator(name)"
-      :placeholder="selectPlaceholder(name)"
-      :autocomplete="selectAutocomplete(name)"
-      :data-maska="selectMask(name)"
-      v-maska
-      :value="modelValue"
-    />
-    <ErrorMessage :class="s.error" :name="name" />
+    >
+      <input
+        @change="
+          (e) => {
+            $emit('update:modelValue', trimValue(e.target.value));
+            handleChange(e);
+          }
+        "
+        :class="[s.input, s[style]]"
+        type="text"
+        :name="name"
+        :placeholder="selectPlaceholder(name)"
+        :autocomplete="selectAutocomplete(name)"
+        :value="modelValue"
+        v-bind="field"
+      />
+      <span :class="s.error">{{ error ? error : errors[0] }}</span>
+    </Field>
   </div>
 </template>

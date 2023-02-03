@@ -106,30 +106,50 @@ export const formData = [
     name: "cardNumber",
     type: "input",
     placeholder: "CARD NUMBER",
-    defaultValue: "4444333322221111"
+    defaultValue: "",
+    validation: { required: true, numeric: true },
+    style: "medium",
+    error: "На шо ты жмал, поехавший?"
   },
   {
     name: "cardholderName",
     type: "input",
     placeholder: "CARDHOLDER NAME",
-    defaultValue: "TEST NAME"
+    defaultValue: "",
+    validation: { required: true, email: true },
+    style: "medium"
   },
   {
     name: "year",
     type: "select",
     placeholder: "YEAR",
-    defaultValue: ""
+    defaultValue: "",
+    validation: { required: true, cardholderName: true }
   },
   {
     name: "month",
     type: "select",
     placeholder: "MONTH",
-    defaultValue: ""
+    defaultValue: 0,
+    validation: { required: true }
+  },
+  {
+    name: "country",
+    type: "select",
+    placeholder: "COUNTRY",
+    defaultValue: "",
+    searchable: true,
+    data: [
+      { label: "USA", value: 1 },
+      { label: "Russia", value: 2 },
+      { label: "Africa", value: 3 }
+    ]
   },
   {
     name: "terms",
     type: "checkbox",
     label: "Accept Terms & Conditions",
-    defaultValue: true
+    defaultValue: false,
+    validation: { required: true }
   }
 ];
